@@ -1,8 +1,18 @@
-import React from 'react';
+import React, {useEffect}from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from '../Header';
 import {MainContainer, TitleContainer, Logo} from './styles'
 
 function HomePage() {
+    const history  = useHistory();
+    
+    useEffect(() => {
+        const acessToken = window.localStorage.getItem("acessToken")
+        if(acessToken !== null){
+            history.push("/mills")
+        }
+    },[history])
+
     return(
         <MainContainer>
             <Header/>

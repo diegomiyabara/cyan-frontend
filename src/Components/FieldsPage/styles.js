@@ -1,4 +1,4 @@
-import { Paper } from '@material-ui/core';
+import { Paper, TextField } from '@material-ui/core';
 import styled from 'styled-components';
 
 export const MainContainer = styled.div`
@@ -10,7 +10,6 @@ export const MainContainer = styled.div`
 export const MainPaper = styled(Paper)`
     margin: 25px;
     flex-grow: 1;
-    overflow: auto;
 `
 
 export const Title = styled.h1`
@@ -46,4 +45,12 @@ export const Button = styled.button`
         color: #F9F9F9;
         opacity: 90%;
     }
+`
+
+export const StyledForm = styled.form`
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    height: 35vh;
+    justify-content: space-around;
 `
