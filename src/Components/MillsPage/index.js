@@ -9,7 +9,8 @@ import useForm from '../../Hooks/useForm'
 function MillsPage() {
     const history  = useHistory();
     const [mills, setMills] = useState([]);
-    const {form, onChange, resetForm} = useForm({millHash:""})
+    const [render, setRender] = useState(false)
+    const {form, onChange, resetForm} = useForm({millHash:"", millName: ""})
     const handleInputChange = event => {
         const {name, value} = event.target
         onChange(name, value)
@@ -51,13 +52,35 @@ function MillsPage() {
         history.push(`/harvests/${millId}`)
     }
 
-    return (
-        <MainContainer>
-            <Header/>
-            <MainPaper>
-                <Title>Usinas</Title>
-                <form onSubmit={handleFilter}>
-                    <FilterContainer>
+    const changeRender = (boolean) => {
+        setRender(boolean)
+    } 
+
+    const submitNewMill = (e) => {
+        e.preventDefault();
+        const body  = {
+            name: form.millName
+        }
+        authAxios.post(`/mills`, body)
+        .then((res) => {
+            window.alert(`Usina ${form.millName} cadastrada com sucesso!`)
+            setRender(false)
+        })
+        .catch((err) => {
+            window.alert(`Não foi possível cadastrar a usina, contate o administrador.`)
+            setRender(false)
+        })
+    }
+
+    const renderPage = () => {
+        if(render === false) {
+            return(
+                <MainContainer>
+                    <Header/>
+                    <MainPaper>
+                    <Title>Usinas</Title>
+                    <form onSubmit={handleFilter}>
+                        <FilterContainer>
                             <TextField 
                                 label="Nome da Usina" 
                                 variant="outlined"
@@ -70,18 +93,49 @@ function MillsPage() {
                             />
                             <Button>Filtrar</Button>
                             <Button onClick={handleFilter}>Limpar Filtros</Button>
-                    </FilterContainer>
-                </form>
-                    
-                {mills.map((mill) => {
-                    return(
-                        <StyledPaper key={mill.id} onClick={() => goToHarvestPage(mill.id)}>
-                            <p>{mill.name}</p>
-                        </StyledPaper>
-                    )
-                })}
-            </MainPaper>
-        </MainContainer>
+                            <Button onClick={() => changeRender(true)}>Cadastrar novo</Button>
+                        </FilterContainer>
+                    </form>  
+                    {mills.map((mill) => {
+                        return(
+                            <StyledPaper key={mill.id} onClick={() => goToHarvestPage(mill.id)}>
+                                <p>Usina: {mill.name}</p>
+                            </StyledPaper>
+                        )
+                    })}
+                    </MainPaper>
+                </MainContainer>
+            )
+        } else {
+            return(
+                <MainContainer>
+                    <Header/>
+                    <MainPaper>
+                        <Title>Cadastrar nova Usina</Title>
+                        <form onSubmit={submitNewMill}>
+                            <FilterContainer>
+                                <TextField 
+                                    label="Nome da Usina" 
+                                    variant="outlined"
+                                    type="text"
+                                    name="millName"
+                                    placeholder="Nome da Usina"
+                                    value={form.millName}
+                                    onChange={handleInputChange}
+                                    fullWidth={true}
+                                />
+                                <Button>Cadastrar</Button>
+                                <Button onClick={() => changeRender(false)}>Voltar</Button>
+                            </FilterContainer>
+                        </form>
+                    </MainPaper>
+                </MainContainer>
+            )
+        }
+    }
+
+    return (
+        renderPage()
     )
 }
 

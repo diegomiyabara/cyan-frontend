@@ -10,6 +10,7 @@ export const MainContainer = styled.div`
 export const MainPaper = styled(Paper)`
     margin: 25px;
     flex-grow: 1;
+    overflow: auto;
 `
 
 export const Title = styled.h1`
@@ -27,7 +28,7 @@ export const FilterContainer = styled.div`
     flex-wrap: wrap;
     justify-content: space-around;
     margin: 16px auto;
-    width: 40vw;
+    width: 55%;
 `
 
 export const Button = styled.button`
