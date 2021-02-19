@@ -34,6 +34,7 @@
     - Implementar cadastro de novos usuários e permissões.
     - Inserir botão de deletar usinas, colheitas, fazendas e talhões.
     - Testes de integração e unitários.
+    - Enviar notificação para todos os usuários quando novas Usinas/Colheitas/Fazendas/Talões forem criados via WEB SOCKET.
     
 ## Deploy da Aplicação pelo s3 da AWS: :dash:
 
