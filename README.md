@@ -3,7 +3,7 @@
 <p align="center"><img src="https://img.shields.io/static/v1?label=react&message=framework&color=blue&style=flat&logo=REACT"/>
 <img src="https://img.shields.io/static/v1?label=styled-components&message=lib&color=pink&style=flat&logo=STYLED-COMPONENTS"/>
 <img src="https://img.shields.io/static/v1?label=axios&message=lib&color=black&style=flat&logo=AXIOS"/>
-<img src="https://img.shields.io/static/v1?label=router&message=lib&color=blue&style=flat&logo=ROUTER"/></p>
+<img src="https://img.shields.io/static/v1?label=router&message=lib&color=blue&style=flat&logo=ROUTER"/>
 <img src="https://img.shields.io/static/v1?label=leaflet&message=lib&color=blue&style=flat&logo=LEAFLET"/></p>
 
 
