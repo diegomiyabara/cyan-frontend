@@ -3,6 +3,7 @@ import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import LoginPage from './LoginPage';
 import HomePage from  './HomePage'
 import MillsPage from './MillsPage';
+import HarvestsPage from './HarvestsPage';
 
 function Router() {
     return(
@@ -13,6 +14,9 @@ function Router() {
                 </Route>
                 <Route exact path = "/mills">
                     <MillsPage/>
+                </Route>
+                <Route exact path = "/harvests/:millId">
+                    <HarvestsPage/>
                 </Route>
                 <Route path = "/">
                     <HomePage />

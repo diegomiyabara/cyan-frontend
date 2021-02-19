@@ -1,15 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
+import useForm from '../../Hooks/useForm';
 import Header from '../Header';
-import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 import { MainContainer, MainPaper, StyledPaper, Title, FilterContainer, Button } from './styles'
 import {TextField} from '@material-ui/core'
-import axios from 'axios';
-import useForm from '../../Hooks/useForm'
 
-function MillsPage() {
-    const history  = useHistory();
-    const [mills, setMills] = useState([]);
-    const {form, onChange, resetForm} = useForm({millHash:""})
+function HarvestsPage() {
+    const {form, onChange, resetForm} = useForm({code: "", startDate: "", endDate: ""});
+    const history = useHistory();
+    const params = useParams();
+    const [harvests, setHarvests] = useState([]);
+
     const handleInputChange = event => {
         const {name, value} = event.target
         onChange(name, value)
@@ -23,48 +25,52 @@ function MillsPage() {
             Authorization: `Bearer ${acessToken}`
         }
     })
-    
+
     useEffect(() => {
-        if(acessToken === null){
+        if(!acessToken) {
             history.push("/login")
         } else {
-            authAxios.get(`/mills`)
+            authAxios.get(`/harvests/?millId=${params.millId}`)
             .then((res) => {
-                setMills(res.data)
+                setHarvests(res.data)
             })
             .catch((err) => {
                 console.log(err.message)
             })
         }
-    },[history, acessToken])
+    }, [acessToken, history, params, baseURL])
 
     const handleFilter = (e) => {
         e.preventDefault();
-        authAxios.get(`/mills/?name=${form.millHash}`)
+        authAxios.get(`/harvests/?millId=${params.millId}?code=${form.code}`)
         .then((res) => {
-            setMills(res.data)
+            setHarvests(res.data)
             resetForm()
         })
     }
 
-    const goToHarvestPage = (millId)  => {
-        history.push(`/harvests/${millId}`)
+    const goToFarmsPage = (harvestId)  => {
+        history.push(`/farms/${harvestId}`)
     }
 
-    return (
+    const goToMillsPage = () => {
+        history.push(`/mills`)
+    }
+    console.log(harvests)
+    return(
         <MainContainer>
             <Header/>
             <MainPaper>
-                <Title>Usinas</Title>
+                <Title>Safras</Title>
                 <form onSubmit={handleFilter}>
                     <FilterContainer>
                             <TextField 
                                 label="Nome da Usina" 
                                 variant="outlined"
                                 type="text"
-                                name="millHash"
+                                name="code"
                                 placeholder="Busque pelo nome do álbum"
-                                value={form.millHash}
+                                value={form.code}
                                 onChange={handleInputChange}
                                 fullWidth={true}
                             />
@@ -73,16 +79,19 @@ function MillsPage() {
                     </FilterContainer>
                 </form>
                     
-                {mills.map((mill) => {
+                {harvests.map((harvest) => {
                     return(
-                        <StyledPaper key={mill.id} onClick={() => goToHarvestPage(mill.id)}>
-                            <p>{mill.name}</p>
+                        <StyledPaper key={harvest.id} onClick={() => goToFarmsPage(harvest.id)}>
+                            <p>Código da Safra: {harvest.code}</p>
+                            <p>Data da plantação: {harvest.startDate}</p>
+                            <p>Data da colheita: {harvest.endDate}</p>
                         </StyledPaper>
                     )
                 })}
+                <Button onClick={goToMillsPage}>Voltar para Usinas</Button>
             </MainPaper>
         </MainContainer>
     )
 }
 
-export default MillsPage
+export default HarvestsPage

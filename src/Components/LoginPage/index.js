@@ -17,9 +17,9 @@ function LoginPage() {
     }
     
     useEffect(() => {
-        const token = window.localStorage.getItem("token")
-        if(token !== null){
-            history.push("/albuns")
+        const acessToken = window.localStorage.getItem("acessToken")
+        if(acessToken !== null){
+            history.push("/mills")
         }
     },[history])
 
