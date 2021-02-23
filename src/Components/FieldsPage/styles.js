@@ -51,6 +51,6 @@ export const StyledForm = styled.form`
     width: 80%;
     display: flex;
     flex-direction: column;
-    height: 35vh;
+    height: 65vh;
     justify-content: space-around;
 `

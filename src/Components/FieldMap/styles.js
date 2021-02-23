@@ -1,4 +1,4 @@
-import {MapContainer} from 'react-leaflet';
+import {Map} from 'react-leaflet';
 import styled from 'styled-components';
 
 export const MainContainer = styled.div`
@@ -7,7 +7,7 @@ export const MainContainer = styled.div`
     height: 100vh;
 `
 
-export const StyledMapContainer = styled(MapContainer)`
+export const StyledMapContainer = styled(Map)`
     flex-grow: 1;
 `
 
