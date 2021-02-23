@@ -4,6 +4,7 @@ import Header from '../Header';
 import { StyledMapContainer, MainContainer, Title } from './styles';
 import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { Button } from './styles';
 
 function FieldMap() {
     const [field, setField] = useState();
@@ -28,19 +29,24 @@ function FieldMap() {
         }
     },[])
 
+    const goToFieldsPage = ()  => {
+        history.push(`/fields/${params.farmId}`)
+    }
+
     const center = field && field.coordinates[0]
 
     return(
         <MainContainer>
             <Header/>
             <Title>Código do Talhão: {field && field.code}</Title>
-            {field && <StyledMapContainer center={center} zoom={14} scrollWheelZoom={true}>
+            {field && <StyledMapContainer center={center} zoom={12} scrollWheelZoom={true}>
                 <TileLayer
                     attribution='&amp;copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 {field && <Polygon positions={field.coordinates} color="#4584CC"/>}
             </StyledMapContainer>}
+            <Button onClick={goToFieldsPage}>Voltar</Button>
         </MainContainer>
         
     )

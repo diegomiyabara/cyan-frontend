@@ -14,3 +14,19 @@ export const StyledMapContainer = styled(Map)`
 export const Title = styled.p`
 
 `
+
+export const Button = styled.button`
+    height: 40px;
+    width: 130px;
+    border-radius: 10px;
+    background-color: #323232;
+    color: #FFF;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2em;
+    :hover {
+        background-color: #FFF;
+        color: #323232;
+    }
+    align-self: center;
+`
